@@ -6,27 +6,23 @@
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<script src="//code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
 		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+		<link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+		
 		<script src="js/index.js"></script>
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="css/default.css">
 	<body>
 		
-		<div id='access-token-input'>
-			<label for='token'>Paste your access token below:</label>
-			<input id='token'>
-			<button class='btn btn-default btn-sm' data-toggle='modal' data-target='#tutModal'>How?</button>
-		</div>
+		<header>
+			<div id='access-token-input'>
+				<label for='token'>Paste your access token below:</label>
+				<input id='token'>
+				<button class='btn btn-default btn-sm' data-toggle='modal' data-target='#tutModal'>How?</button>
+			</div>
+		</header>
 		<div id='message-display'></div>
 		<div id='conversations'></div>
-		<div id='tutorial' class='hidden'>
-			<img class='tut' src='img/step1.png' />
-			<img class='tut' src='img/step2.png' />
-			<img class='tut' src='img/step3.png' />
-			<img class='tut' src='img/step4.png' />
-			<img class='tut' src='img/step5.png' />
-			<img class='tut' src='img/step6.png' />
-			<img class='tut' src='img/step7.png' />
-		</div>
 		<div id='tutModal' class='modal fade' role="dialog">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -35,13 +31,13 @@
 			        	<h4 class="modal-title">STEP 1: GO TO <a href='https://developers.facebook.com/tools/explorer'>https://developers.facebook.com/tools/explorer</a></h4>
 			      	</div>
 			      	<div class="modal-body">
-						<img class='tut' src='img/step1.png' />
-						<img class='tut' src='img/step2.png' />
-						<img class='tut' src='img/step3.png' />
-						<img class='tut' src='img/step4.png' />
-						<img class='tut' src='img/step5.png' />
-						<img class='tut' src='img/step6.png' />
-						<img class='tut' src='img/step7.png' />
+						<img class='tut img-responsive' src='img/step1.png' />
+						<img class='tut img-responsive' src='img/step2.png' />
+						<img class='tut img-responsive' src='img/step3.png' />
+						<img class='tut img-responsive' src='img/step4.png' />
+						<img class='tut img-responsive' src='img/step5.png' />
+						<img class='tut img-responsive' src='img/step6.png' />
+						<img class='tut img-responsive' src='img/step7.png' />
 			      	</div>
 			      	<div class="modal-footer">
 			        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -49,7 +45,25 @@
 			    </div>
 			</div>
 		</div>
+
+		<div id="col-body">
+			<div class="row-fluid">
+				<div id="col-friends">
+				</div>
+				<div id="col-messages">
+					<div id="messages-container" role="main"></div>
+				</div>
+			</div>
+		</div>
+
 		<div id="loader"><h1>Loading...</h1>
 		</div>
+
+		<footer class="footer">
+			<div class="container">
+				<span class="text-muted"></span>
+			</div>
+		</footer>
+
 	</body>
 </html>

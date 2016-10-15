@@ -5,10 +5,12 @@
 
 .tut {
 	zoom: 50%;
+	width: 300px;
 }
 
 body {
 	padding: 15px;
+	color: #212121;
 }
 
 .your {
