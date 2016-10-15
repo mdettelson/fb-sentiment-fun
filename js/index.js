@@ -252,12 +252,13 @@ function displayMessages(conversation, yourname, index_no) {
 		var sentiment = findWinner(conversation[message]['sentiment']);
 		var div;
 		if (conversation[message].from.name == yourname) {
-			div = $("<div style='background-color:"+getColorBySentiment(sentiment)+";' class='your message'");
+			div = $("<div style='background-color:"+getColorBySentiment(sentiment)+";' class='your message' id='message" + i + "'>");
 		}
 		else {
-			div = $("<div style='background-color:"+getColorBySentiment(sentiment)+";' class='their message'");
+			div = $("<div style='background-color:"+getColorBySentiment(sentiment)+";' class='their message' id='message" + i + "'>");
 		}
-			div.append("id='message" + i + "'><br><span>"+Object.keys(sentiment)[0]+"</span> <span class='author'>" + 
+		i++;
+			div.append("<br><span>"+Object.keys(sentiment)[0]+"</span> <span class='author'>" + 
 									  conversation[message].from.name + 
 									  "</span> <span class='message-text'>" + 
 									  conversation[message].message + 
