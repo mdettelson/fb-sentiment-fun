@@ -12,4 +12,6 @@ body {
 	margin: 10px;
 	height: 75%;
 	overflow: auto;
+	padding: 0 20%;
+	outline: 1px solid black;
 }

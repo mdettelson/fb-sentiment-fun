@@ -1,5 +1,14 @@
 GLOBALS = {}
 
+GLOBALS.threshold = 0.2;
+GLOBALS.colormappings = {}
+GLOBALS.colormappings['joy'] = [255, 211, 0];
+GLOBALS.colormappings['anger'] = [255, 0, 0];
+GLOBALS.colormappings['sadness'] = [0, 105, 185];
+GLOBALS.colormappings['fear'] = [140, 57, 152];
+GLOBALS.colormappings['disgust'] = [10, 120, 17];
+GLOBALS.colormappings['none'] = [255, 255, 255];
+
 $(document).ready(function() {
 	initEventListeners();
 });
@@ -25,6 +34,7 @@ function initEventListeners() {
 
 function accessTokenSubmit(token) {
 	console.log(token);
+	showLoadScreen();
 	makeFacebookMessagesQuery(token);
 }
 
@@ -43,11 +53,13 @@ function makeFacebookMessagesQuery(token) {
 		error: function() {
 			// well facebook doesn't do error status parsing whoops
 			alert("Whoops! Something went wrong with your query. Check your Access Token and try again");
+			hideLoadScreen();
 		}
 	});
 }
 
 function fbTokenQuerySuccess(token, data) {
+	hideLoadScreen();
 	alert("Success!");
 	GLOBALS.raw = data;
 	GLOBALS.conversations = data['data'];
@@ -148,29 +160,66 @@ function sentimentAnalysisQueryFailure(conversation, index, data) {
 
 function analyzeConversation(index_no) {
 	// console.log(index_no);
+	showLoadScreen();
 	var comments = GLOBALS.conversations[index_no]['comments']['data'];
 	var deferreds = $.map(GLOBALS.conversations[index_no]['comments']['data'], function(v,k) {
 		return makeSentimentAnalysisQuery(GLOBALS.conversations[index_no], k, v['message']);
 	});
 	$.when.apply(window, deferreds).then(function() { 
 		console.log('hello');
+		hideLoadScreen();
 		displayMessages(comments, GLOBALS.username);
 	});
 }
 
 function findWinner(sentiments_object) {
-	var winner = 'none';
-	var cur_win = 0.5;
+	var winner1 = 'none';
+	var winner2 = 'none';
+	var cur_win1 = GLOBALS.threshold;
+	var cur_win2 = GLOBALS.threshold;
 	sentiments_object = sentiments_object['docEmotions'];
 	for (sentiment in sentiments_object) {
-		if (sentiments_object[sentiment] >= cur_win) {
-			winner = sentiment;
-			cur_win = sentiments_object[sentiment];
+		if (sentiments_object[sentiment] >= cur_win2) {
+			if (sentiments_object[sentiment] >= cur_win1) {
+				cur_win2 = cur_win1;
+				winner2 = winner1;
+				cur_win1 = sentiments_object[sentiment];
+				winner1 = sentiment;
+			}
+			else {
+				cur_win2 = sentiments_object[sentiment];
+				winner2 = sentiment;
+			}
 		}
 	}
 	var out = {};
-	out[winner] = cur_win;
+	out[winner1] = cur_win1;
+	out[winner2] = cur_win2;
 	return out;
+}
+
+function getColorBySentiment(sentiment_pair) {
+	var sentiment = Object.keys(sentiment_pair)[0];
+	var intensity = Math.pow(sentiment_pair[sentiment], 2);
+
+	if (sentiment == 'joy') {
+		return 'rgba(255, 211, 0, '+intensity+')';
+	}
+	else if (sentiment == 'anger') {
+		return 'rgba(255, 0, 0, '+intensity+')';
+	}
+	else if (sentiment == 'sadness') {
+		return 'rgba(0, 105, 185, '+intensity+')';
+	}
+	else if (sentiment == 'fear') {
+		return 'rgba(140, 57, 152, '+intensity+')';
+	}
+	else if (sentiment == 'disgust') {
+		return 'rgba(10, 120, 17, '+intensity+')';
+	}
+	else {
+		return '#fff';
+	}
 }
 
 
@@ -198,10 +247,10 @@ function displayMessages(conversation, yourname) {
 		var sentiment = findWinner(conversation[message]['sentiment']);
 		var div;
 		if (conversation[message].from.name == yourname) {
-			div = $("<div class='your message'>");
+			div = $("<div style='background-color:"+getColorBySentiment(sentiment)+";' class='your message'>");
 		}
 		else {
-			div = $("<div class='their message'>");
+			div = $("<div style='background-color:"+getColorBySentiment(sentiment)+";' class='their message'>");
 		}
 			div.append("<span>"+Object.keys(sentiment)[0]+"</span> <span class='author'>" + 
 									  conversation[message].from.name + 
@@ -211,4 +260,15 @@ function displayMessages(conversation, yourname) {
 			div.appendTo("#message-display");
 	}
 
+}
+
+
+function showLoadScreen() {
+	$('#loader').addClass('active');
+	$('body').addClass('loading');
+}
+
+function hideLoadScreen() {
+	$('#loader').removeClass('active');
+	$('body').removeClass('loading');
 }

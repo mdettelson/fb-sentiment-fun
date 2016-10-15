@@ -33,6 +33,7 @@ def analyze():
 		return result
 	except:
 		print "error"
+		print sys.exc_info()
 		return '{"error":"invalid"}'
 
 
