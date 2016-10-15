@@ -50,7 +50,8 @@ header {
 }
 
 #soulsearcher {
-	width: 100px;
+	width: 150px;
 	display: block;
 	margin: auto;
+	float: left;
 }
