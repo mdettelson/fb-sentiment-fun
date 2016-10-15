@@ -351,6 +351,10 @@ function greatestSentimentSumSize3WithKey(list, key) {
 
 // follows invariant from sentiment subset sum function that index is at least 2
 function jumpToMessageGroup(index) {
+	$("[id^=message").removeClass('highlighted');
+	$('#message'+index).addClass('highlighted');
+	$('#message'+(index-1)).addClass('highlighted');
+	$('#message'+(index-2)).addClass('highlighted');
 	window.location = '#message' + (index-2);
 }
 
