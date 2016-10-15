@@ -32,6 +32,15 @@ function initEventListeners() {
 		e.preventDefault();
 		loadMoreMessages($(this).attr('id').split('_')[1]);
 	})
+
+	$('#search-console').on('click', '.emotion-button', function(e) {
+		e.preventDefault();
+		var val = greatestSentimentSumSize3WithKey(GLOBALS.conversations[GLOBALS.currentConversation]
+			.comments.data, $(this).attr('id'));
+		jumpToMessageGroup(val);
+	})
+
+	})
 }
 
 function accessTokenSubmit(token) {
@@ -50,6 +59,7 @@ function makeFacebookMessagesQuery(token) {
 			}
 			else {
 				fbTokenQuerySuccess(token, data);
+				$("#access-token-input").css("display", "none");
 			}
 		},
 		error: function() {
@@ -171,6 +181,7 @@ function analyzeConversation(index_no) {
 	$.when.apply(window, deferreds).then(function() { 
 		console.log('hello');
 		hideLoadScreen();
+		$("#search-console").css("display", "block");
 		displayMessages(comments, GLOBALS.username, index_no);
 	});
 }

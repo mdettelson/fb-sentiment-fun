@@ -3,6 +3,10 @@
 	display: block;
 }
 
+#search-console {
+	display: none;
+}
+
 .tut {
 	zoom: 50%;
 	width: 500px;
