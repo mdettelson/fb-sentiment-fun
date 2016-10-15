@@ -132,11 +132,12 @@ function makeSentimentAnalysisQuery(conversation, index, sentence) {
 		method: 'POST',
 		data: {'text': sentence},
 		success: function(data) {
+			data = JSON.parse(data);
 			if (data.hasOwnProperty('error')) {
 				console.log(sentence);
 				console.log(data);
 				console.log('data errored. silently failing');
-				console.log('TODO implement fail that we can recover from');
+				sentimentAnalysisQueryFailure(conversation, index, data);
 			}
 			else {
 				sentimentAnalysisQuerySuccess(conversation, index, data);
@@ -152,7 +153,7 @@ function makeSentimentAnalysisQuery(conversation, index, sentence) {
 }
 
 function sentimentAnalysisQuerySuccess(conversation, index, data) {
-	conversation['comments']['data'][index]['sentiment'] = JSON.parse(data);
+	conversation['comments']['data'][index]['sentiment'] = data;
 
 	// do more stuff idk
 }
@@ -247,9 +248,10 @@ function getColorBySentiment(sentiment_pair) {
 // loading more conversations (pagination is already there for loading more conversations)
 
 function displayMessages(conversation, yourname, index_no) {
+	GLOBALS.currentConversation = index_no;
 	$("#message-display").empty();
 	$('#message-display').append('<a href="#" class="loadmore" id="loadmore_'+index_no+'">Load more messages</a>');
-	var i = 1;
+	var i = 0;
 	for (message in conversation) {
 		var sentiment = findWinner(conversation[message]['sentiment']);
 		var div;
@@ -325,11 +327,11 @@ function hideLoadScreen() {
 }
 
 function greatestSentimentSumSize3WithKey(list, key) {
-	a = [];
 	l = list.length;
 	max = 0;
 	max_i = 2;
 	for (var i = 2; i < l; i++) {
+		// console.log(i);
 		var cur = Number(list[i]['sentiment']['docEmotions'][key]) + Number(list[i-2]['sentiment']['docEmotions'][key]) + Number(list[i-1]['sentiment']['docEmotions'][key]);
 		if (cur > max) {
 			max = cur;
@@ -338,6 +340,11 @@ function greatestSentimentSumSize3WithKey(list, key) {
 	}
 	console.log(max);
 	return max_i;
+}
+
+// follows invariant from sentiment subset sum function that index is at least 2
+function jumpToMessageGroup(index) {
+	window.location = '#message' + (index-2);
 }
 
 
