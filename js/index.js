@@ -16,10 +16,8 @@ $(document).ready(function() {
 
 function initEventListeners() {
 	$('#token').on('keydown', function(e) {
-		console.log(this);
 		if (e.keyCode === 13) {
 			e.preventDefault();
-			console.log(this);
 			accessTokenSubmit($(this).val());
 		}
 	});
@@ -30,6 +28,10 @@ function initEventListeners() {
 	$('#showtut').on('click', function(e) { 
 		$('#tutorial').toggleClass('hidden');
 	});
+	$('#message-display').on('click', '.loadmore', function(e) {
+		e.preventDefault();
+		loadMoreMessages($(this).attr('id').split('_')[1]);
+	})
 }
 
 function accessTokenSubmit(token) {
@@ -168,7 +170,7 @@ function analyzeConversation(index_no) {
 	$.when.apply(window, deferreds).then(function() { 
 		console.log('hello');
 		hideLoadScreen();
-		displayMessages(comments, GLOBALS.username);
+		displayMessages(comments, GLOBALS.username, index_no);
 	});
 }
 
@@ -177,7 +179,7 @@ function findWinner(sentiments_object) {
 	var winner2 = 'none';
 	var cur_win1 = GLOBALS.threshold;
 	var cur_win2 = GLOBALS.threshold;
-	
+
 	sentiments_object = sentiments_object['docEmotions'];
 	for (sentiment in sentiments_object) {
 		if (sentiments_object[sentiment] >= cur_win2) {
@@ -242,8 +244,9 @@ function getColorBySentiment(sentiment_pair) {
 // potential future development?
 // loading more conversations (pagination is already there for loading more conversations)
 
-function displayMessages(conversation, yourname) {
+function displayMessages(conversation, yourname, index_no) {
 	$("#message-display").empty();
+	$('#message-display').append('<a href="#" class="loadmore" id="loadmore_'+index_no+'">Load more messages</a>');
 	for (message in conversation) {
 		var sentiment = findWinner(conversation[message]['sentiment']);
 		var div;
@@ -261,6 +264,49 @@ function displayMessages(conversation, yourname) {
 			div.appendTo("#message-display");
 	}
 
+}
+
+function messagesPaginationQuery(myurl, conversation, index_no) {
+	return $.ajax({
+		url: myurl,
+		success: function(data) {
+			// this is new conversation data
+			console.log(data);
+			if (data.hasOwnProperty('error')) {
+				console.log('ouch something went wrong');
+			}
+			else {
+				var current_chats = conversation['comments']['data'];
+				if (data.hasOwnProperty('paging')) {
+					conversation['comments']['paging'] = data.paging;
+				}
+				else {
+					conversation['comments']['paging'] = {};
+				}
+				if (data.hasOwnProperty('data')) {
+					data['data'] = data['data'].filter(function(d) { return d.hasOwnProperty('message')});
+					conversation['comments']['data'] = data['data'].concat(conversation['comments']['data']);
+				}
+				analyzeConversation(index_no);
+			}
+		},
+		error: function(data) {
+			alert('Whoops! Something went wrong.');
+		}
+	})
+}
+
+function loadMoreMessages(index_no) {
+	showLoadScreen();
+	var comments = GLOBALS.conversations[index_no]['comments'];
+	if (comments.hasOwnProperty('paging')) {
+		if (comments.paging.hasOwnProperty('next')) {
+			messagesPaginationQuery(comments.paging.next, GLOBALS.conversations[index_no], index_no);
+		}
+	}
+	else {
+		hideLoadScreen();
+	}
 }
 
 
