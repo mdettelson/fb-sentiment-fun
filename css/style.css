@@ -48,3 +48,9 @@ header {
 	margin-top: 30px;
 	margin-bottom: 30px;
 }
+
+.soulsearcher {
+	width: 200px;
+	display: block;
+	margin: auto;
+}
