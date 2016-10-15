@@ -32,6 +32,15 @@ function initEventListeners() {
 		e.preventDefault();
 		loadMoreMessages($(this).attr('id').split('_')[1]);
 	})
+
+	$('#search-console').on('click', '.emotion-button', function(e) {
+		e.preventDefault();
+		var val = greatestSentimentSumSize3WithKey(GLOBALS.conversations[GLOBALS.currentConversation]
+			.comments.data, $(this).attr('id'));
+		jumpToMessageGroup(val);
+	})
+
+	})
 }
 
 function accessTokenSubmit(token) {
