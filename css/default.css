@@ -6,6 +6,7 @@ body {
 
 .emotion-button {
 	width: 100px;
+	cursor: pointer;
 }
 
 #tutorial img {
