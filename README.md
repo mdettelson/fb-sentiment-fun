@@ -1,4 +1,4 @@
-#Fun With Sentiment Analysis and Facebook
+#SoulSearch - Sentimentally analyze and search your Facebook messages.
 
 
 ### Dependencies: (see requirements.txt)
