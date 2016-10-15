@@ -4,6 +4,10 @@ body {
 	background-color: #F5F5F5;
 }
 
+.emotion-button {
+	width: 100px;
+}
+
 #tutorial img {
 	display: block;
 }
