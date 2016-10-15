@@ -158,6 +158,20 @@ function analyzeConversation(index_no) {
 	});
 }
 
+function findWinner(sentiments_object) {
+	var winner = 'none';
+	var cur_win = 0.5;
+	sentiments_object = sentiments_object['docEmotions'];
+	for (sentiment in sentiments_object) {
+		if (sentiments_object[sentiment] >= cur_win) {
+			winner = sentiment;
+			cur_win = sentiments_object[sentiment];
+		}
+	}
+	var out = {};
+	out[winner] = cur_win;
+	return out;
+}
 
 
 
@@ -181,6 +195,7 @@ function analyzeConversation(index_no) {
 function displayMessages(conversation, yourname) {
 	$("#message-display").empty();
 	for (message in conversation) {
+		var sentiment = findWinner(conversation[message]['sentiment']);
 		var div;
 		if (conversation[message].from.name == yourname) {
 			div = $("<div class='your message'>");
@@ -188,7 +203,7 @@ function displayMessages(conversation, yourname) {
 		else {
 			div = $("<div class='their message'>");
 		}
-			div.append("<span class='author'>" + 
+			div.append("<span>"+Object.keys(sentiment)[0]+"</span> <span class='author'>" + 
 									  conversation[message].from.name + 
 									  "</span> <span class='message-text'>" + 
 									  conversation[message].message + 
