@@ -7,7 +7,7 @@ GLOBALS.colormappings['anger'] = [255, 110, 64];
 GLOBALS.colormappings['sadness'] = [66, 165, 245];
 GLOBALS.colormappings['fear'] = [206, 147, 216];
 GLOBALS.colormappings['disgust'] = [124, 179, 66];
-GLOBALS.colormappings['none'] = [245, 245, 245];
+GLOBALS.colormappings['none'] = [238, 238, 238];
 
 $(document).ready(function() {
 	initEventListeners();
@@ -222,7 +222,7 @@ function getColorBySentiment(sentiment_pair) {
 		return 'rgba(124, 179, 66, '+intensity+')';
 	}
 	else {
-		return '#FAFAFA';
+		return 'rgb(238, 238, 238)';
 	}
 }
 
