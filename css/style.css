@@ -1,3 +1,12 @@
+.author {
+	font-weight: bold;
+	display: block;
+}
+
+body {
+	padding: 15px;
+}
+
 #message-display {
 	display: block;
 	width: 100px;
