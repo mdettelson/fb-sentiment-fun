@@ -4,9 +4,21 @@
 		<title>Facebook Sentiment Analysis</title>
 		<meta charset='utf-8'>
 		<link rel="stylesheet" src="css/style.css">
+		<script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
 		<script src="js/index.js"></script>
 		<script src="js/facebook.js"></script>
 	<body>
 		Polyhack 2016.
+		<!--
+		  Below we include the Login Button social plugin. This button uses
+		  the JavaScript SDK to present a graphical Login button that triggers
+		  the FB.login() function when clicked.
+		-->
+
+		<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+		</fb:login-button>
+
+		<div id="status">
+		</div>
 	</body>
 </html>

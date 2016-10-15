@@ -1,5 +1,7 @@
 import os
 from flask import Flask, request, send_from_directory
+from src import analyzemessage as polyhack
+
 app = Flask(__name__)
 
 @app.route('/')
