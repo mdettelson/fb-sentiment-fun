@@ -50,6 +50,7 @@ function makeFacebookMessagesQuery(token) {
 			}
 			else {
 				fbTokenQuerySuccess(token, data);
+				$("#access-token-input").css("display", "none");
 			}
 		},
 		error: function() {
@@ -170,6 +171,7 @@ function analyzeConversation(index_no) {
 	$.when.apply(window, deferreds).then(function() { 
 		console.log('hello');
 		hideLoadScreen();
+		$("#search-console").css("display", "block");
 		displayMessages(comments, GLOBALS.username, index_no);
 	});
 }
