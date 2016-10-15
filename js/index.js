@@ -173,15 +173,11 @@ function analyzeConversation(index_no) {
 }
 
 function findWinner(sentiments_object) {
-<<<<<<< HEAD
 	var winner1 = 'none';
 	var winner2 = 'none';
 	var cur_win1 = GLOBALS.threshold;
 	var cur_win2 = GLOBALS.threshold;
-=======
-	var winner = 'none';
-	var cur_win = 0.6;
->>>>>>> 677e8383243d06ff8ffff8c2d9f3bce0b717097d
+	
 	sentiments_object = sentiments_object['docEmotions'];
 	for (sentiment in sentiments_object) {
 		if (sentiments_object[sentiment] >= cur_win2) {
