@@ -70,6 +70,7 @@ function makeFacebookMessagesQuery(token) {
 
 function fbTokenQuerySuccess(token, data) {
 	hideLoadScreen();
+	$('#message-display').show();
 	alert("Success!");
 	GLOBALS.raw = data;
 	GLOBALS.conversations = data['data'];
