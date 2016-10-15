@@ -5,6 +5,7 @@
 * Python 2.7
 * virtualenv
 * flask
+
 ### APIs
 * IBM Watson - Alchemy API
 * Facebook Graph API
