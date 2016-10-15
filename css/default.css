@@ -35,6 +35,11 @@ input {
 	transition: 1s linear all;
 }
 
+.conversation h2 {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
 .conversation:hover {
 	text-decoration: underline;
 	cursor: pointer;

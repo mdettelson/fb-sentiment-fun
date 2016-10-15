@@ -9,9 +9,7 @@ body {
 
 #message-display {
 	display: block;
-	width: 100px;
 	margin: 10px;
 	height: 75%;
-	background-color: #338855;
-	overflow: scroll;
+	overflow: auto;
 }
