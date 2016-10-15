@@ -1,6 +1,10 @@
 import os
-from flask import Flask, request, send_from_directory
+from flask import Flask, redirect, url_for, session, request, send_from_directory
+from flask_oauthlib.client import OAuth, OAuthException
+
 app = Flask(__name__)
+oauth = OAuth(app)
+
 
 @app.route('/')
 def index():
@@ -18,26 +22,70 @@ def send_css(path):
 def send_img(path):
 	return send_from_directory('img', path)
 
-# if __name__ == "__main__":
-    # app.run(debug=True, host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
+
+
+# FBSECRET = os.environ['FBSECRET']
+
+# facebook = oauth.remote_app(
+#     'facebook',
+#     consumer_key={380276585694848},
+#     consumer_secret={FBSECRET},
+#     request_token_params={'scope': 'email'},
+#     base_url='https://graph.facebook.com',
+#     request_token_url=None,
+#     access_token_url='/oauth/access_token',
+#     access_token_method='GET',
+#     authorize_url='https://www.facebook.com/dialog/oauth'
+# )
+
+# @app.route('/home')
+# def home():
+#     # show home page
+#     return
 
 # @app.route('/login')
 # def login(user):
 #     if (user.logged_in == True):
 #         if (user.fb_logged_in == True):
+#             return
 #             # redirect to /home
 #         else:
+#             return
 #             # redirect to /login/fbauth
 
 # @app.route('/login/fbauth')
-# # if we do this in a webview we must send them to 'https://www.facebook.com/connect/login_success.html'
-# redirect_url = app_home + '/login/fbauth_return'
-# def fb_oauth():
-#     # redirect client to fb oauth
+# def facebook_login():
+#     callback = url_for(
+#         'facebook_authorized',
+#         next=request.args.get('next') or request.referrer or None,
+#         _external=True
+#     )
+#     return facebook.authorize(callback=callback)
 
-# @app.route('/login/fbauth_return')
-# def fb_oauth_return():
-#     # add client fb info to user 
+
+
+# @app.route('/login/fbauth/authorized')
+# def facebook_authorized():
+#     resp = facebook.authorized_response()
+#     if resp is None:
+#         return 'Access denied: reason=%s error=%s' % (
+#             request.args['error_reason'],
+#             request.args['error_description']
+#         )
+#     if isinstance(resp, OAuthException):
+#         return 'Access denied: %s' % resp.message
+
+#     session['oauth_token'] = (resp['access_token'], '')
+#     me = facebook.get('/me')
+#     return 'Logged in as id=%s name=%s redirect=%s' % \
+#         (me.data['id'], me.data['name'], request.args.get('next'))
+
+
+# @facebook.tokengetter
+# def get_facebook_oauth_token():
+#     return session.get('oauth_token')
+
+
 
 
 # # bootstrapping the NLTK
