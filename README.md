@@ -1,7 +1,7 @@
 #Fun With Sentiment Analysis and Facebook
 
 
-### Dependencies:
+### Dependencies: (see requirements.txt)
 * Python 2.7
 * virtualenv
 * flask
