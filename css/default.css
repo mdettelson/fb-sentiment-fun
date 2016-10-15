@@ -90,5 +90,6 @@ body.loading {
 }
 
 .highlighted {
-	outline: 1px solid blue;
+	outline: 1px solid;
+	outline-color: #82B1FF;
 }
