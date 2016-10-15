@@ -20,8 +20,26 @@ def send_css(path):
 def send_img(path):
 	return send_from_directory('img', path)
 
+@app.route('/analyze', methods=['POST'])
+def analyze():
+	data = request.form
+	print data
+	if (data['text']):
+		text = data['text']
+		print text
+		result = polyhack.get_emotion(text)
+		print result
+		return result
+	else:
+		print "error"
+		return '{"error":"invalid"}'
+
+
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
+
+
+
 
 # @app.route('/login')
 # def login(user):
