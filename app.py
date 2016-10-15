@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return 
+    return app.send_static_file('html/index.html')
 
 @app.route('/js/<path:path>')
 def send_js(path):
@@ -18,8 +18,8 @@ def send_css(path):
 def send_img(path):
 	return send_from_directory('img', path)
 
-if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
+# if __name__ == "__main__":
+    # app.run(debug=True, host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
 
 # @app.route('/login')
 # def login(user):
