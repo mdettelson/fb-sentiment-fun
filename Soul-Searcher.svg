@@ -4,8 +4,8 @@
 	 viewBox="0 0 612 792" style="enable-background:new 0 0 612 792;" xml:space="preserve">
 <style type="text/css">
 	.st0{fill:#FFFFFF;stroke:#000000;stroke-width:5;stroke-miterlimit:10;}
-	.st1{font-family:'Helvetica-Bold';}
-	.st2{font-size:48px;}
+	.st1{font-family:'Sathu';}
+	.st2{font-size:40px;}
 	.st3{fill:none;stroke:#FDEA39;stroke-width:6;stroke-miterlimit:10;}
 	.st4{fill:none;stroke:#7DB342;stroke-width:6;stroke-miterlimit:10;}
 	.st5{fill:none;stroke:#F36F46;stroke-width:6;stroke-miterlimit:10;}
@@ -15,7 +15,7 @@
 <g>
 	
 		<rect x="40.6" y="180.1" transform="matrix(-1.201734e-10 1 -1 -1.201734e-10 731.0884 110.4214)" class="st0" width="539.4" height="481.2"/>
-	<text transform="matrix(1 1.974205e-04 -1.974205e-04 1 147.8005 516.9722)" class="st1 st2">Soul Searcher</text>
+	<text transform="matrix(1 1.974205e-04 -1.974205e-04 1 188.8005 516.9722)" class="st1 st2">Soul Searcher</text>
 	<g>
 		<circle class="st3" cx="155.5" cy="393.5" r="75"/>
 		<path class="st3" d="M112,413.1c0,11.4,19.4,20.6,43.5,20.6"/>
