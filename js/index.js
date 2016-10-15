@@ -160,7 +160,7 @@ function analyzeConversation(index_no) {
 
 function findWinner(sentiments_object) {
 	var winner = 'none';
-	var cur_win = 0.65;
+	var cur_win = 0.6;
 	sentiments_object = sentiments_object['docEmotions'];
 	for (sentiment in sentiments_object) {
 		if (sentiments_object[sentiment] >= cur_win) {

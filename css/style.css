@@ -3,8 +3,26 @@
 	display: block;
 }
 
+.tut {
+	zoom: 50%;
+}
+
 body {
 	padding: 15px;
+}
+
+.your {
+	text-align: right;
+}
+
+.their {
+	text-alight: left;
+}
+
+.message {
+	background-color: #d7e1f2;
+	padding: 10px;
+	border-radius: 2px;
 }
 
 #message-display {
