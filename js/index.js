@@ -247,16 +247,17 @@ function getColorBySentiment(sentiment_pair) {
 function displayMessages(conversation, yourname, index_no) {
 	$("#message-display").empty();
 	$('#message-display').append('<a href="#" class="loadmore" id="loadmore_'+index_no+'">Load more messages</a>');
+	var i = 1;
 	for (message in conversation) {
 		var sentiment = findWinner(conversation[message]['sentiment']);
 		var div;
 		if (conversation[message].from.name == yourname) {
-			div = $("<div style='background-color:"+getColorBySentiment(sentiment)+";' class='your message'>");
+			div = $("<div style='background-color:"+getColorBySentiment(sentiment)+";' class='your message'");
 		}
 		else {
-			div = $("<div style='background-color:"+getColorBySentiment(sentiment)+";' class='their message'>");
+			div = $("<div style='background-color:"+getColorBySentiment(sentiment)+";' class='their message'");
 		}
-			div.append("<br><span>"+Object.keys(sentiment)[0]+"</span> <span class='author'>" + 
+			div.append("id='message" + i + "'><br><span>"+Object.keys(sentiment)[0]+"</span> <span class='author'>" + 
 									  conversation[message].from.name + 
 									  "</span> <span class='message-text'>" + 
 									  conversation[message].message + 
