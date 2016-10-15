@@ -25,17 +25,13 @@ def send_img(path):
 def analyze():
 	data = request.form
 	print data
-	if (data['text']):
+	try:
 		text = data['text']
 		print text
-		try:
-			result = polyhack.get_emotion(text)
-		except:
-			print sys.exc_info()[0]
-			return '{"error":"invalid"}'
+		result = polyhack.get_emotion(text)
 		print result
 		return result
-	else:
+	except:
 		print "error"
 		return '{"error":"invalid"}'
 
