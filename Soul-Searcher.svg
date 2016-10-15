@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 20.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 612 792" style="enable-background:new 0 0 612 792;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#FFFFFF;stroke:#000000;stroke-width:5;stroke-miterlimit:10;}
+	.st1{font-family:'Helvetica-Bold';}
+	.st2{font-size:48px;}
+	.st3{fill:none;stroke:#FDEA39;stroke-width:6;stroke-miterlimit:10;}
+	.st4{fill:none;stroke:#7DB342;stroke-width:6;stroke-miterlimit:10;}
+	.st5{fill:none;stroke:#F36F46;stroke-width:6;stroke-miterlimit:10;}
+	.st6{fill:none;stroke:#58A0D7;stroke-width:6;stroke-miterlimit:10;}
+	.st7{fill:none;stroke:#C593C3;stroke-width:6;stroke-miterlimit:10;}
+</style>
+<g>
+	
+		<rect x="40.6" y="180.1" transform="matrix(-1.201734e-10 1 -1 -1.201734e-10 731.0884 110.4214)" class="st0" width="539.4" height="481.2"/>
+	<text transform="matrix(1 1.974205e-04 -1.974205e-04 1 147.8005 516.9722)" class="st1 st2">Soul Searcher</text>
+	<g>
+		<circle class="st3" cx="155.5" cy="393.5" r="75"/>
+		<path class="st3" d="M112,413.1c0,11.4,19.4,20.6,43.5,20.6"/>
+		<path class="st3" d="M196.2,413.1c0,11.4-18.2,20.6-40.8,20.6"/>
+	</g>
+	<g>
+		<circle class="st4" cx="232.5" cy="393.5" r="75"/>
+		<line class="st4" x1="212.3" y1="401.7" x2="252.7" y2="441.5"/>
+		<line class="st4" x1="252.5" y1="401.6" x2="212.4" y2="441.6"/>
+	</g>
+	<g>
+		<circle class="st5" cx="309.5" cy="393.5" r="75"/>
+		<path class="st5" d="M350.3,433.6c0-11.4-19.5-20.6-43.5-20.6"/>
+		<path class="st5" d="M266,433.8c0-11.4,18.2-20.7,40.7-20.7"/>
+		<line class="st5" x1="266" y1="351.3" x2="294.2" y2="373.5"/>
+		<line class="st5" x1="350.3" y1="350.9" x2="321" y2="372.9"/>
+	</g>
+	<rect x="68.8" y="219.5" width="381.2" height="85"/>
+	<g>
+		<circle class="st6" cx="390.5" cy="393.5" r="75"/>
+		<path class="st6" d="M431.3,433.6c0-11.4-19.5-20.6-43.5-20.6"/>
+		<path class="st6" d="M347,433.8c0-11.4,18.2-20.7,40.7-20.7"/>
+	</g>
+	<rect x="169.7" y="537.2" width="381.2" height="85"/>
+	<g>
+		<circle class="st7" cx="463.5" cy="393.5" r="75"/>
+		<line class="st7" x1="426.6" y1="371.9" x2="446.9" y2="351.4"/>
+		<line class="st7" x1="475" y1="351.4" x2="495.4" y2="371.8"/>
+		<path class="st7" d="M433.7,427.4c0-10.1,13.3-18.2,29.8-18.2"/>
+		<path class="st7" d="M489.9,427.4c0-10.1-11.8-18.2-26.4-18.2"/>
+	</g>
+</g>
+</svg>
