@@ -18,6 +18,9 @@ function initEventListeners() {
 		e.preventDefault();
 		drillDownIntoConversation(this.attr('id')); // index # of position in global conversations
 	});
+	$('#showtut').on('click', function(e) { 
+		$('#tutorial').toggleClass('hidden');
+	});
 }
 
 function accessTokenSubmit(token) {
@@ -65,6 +68,9 @@ function getUserName() {
 
 function filterConversationsWithNoComments() {
 	GLOBALS.conversations = GLOBALS.conversations.filter(function(d) { return d.hasOwnProperty('comments')});
+	for (var i = GLOBALS.conversations.length - 1; i >= 0; i--) {
+		GLOBALS.conversations[i]['comments']['data'] = GLOBALS.conversations[i]['comments']['data'].filter(function(d) { return d.hasOwnProperty('message')});
+	}
 }
 
 // display conversations as "X and Y" or "X, Y, and Z"
@@ -89,7 +95,6 @@ function makeConversationsHumanReadable() {
 		console.log(convo['readable-name']);
 	}
 }
-
 
 function makeSentimentAnalysisQuery(conversation, index, sentence) {
 	return $.ajax({
@@ -155,3 +160,22 @@ function analyzeConversation(index_no) {
 
 // potential future development?
 // loading more conversations (pagination is already there for loading more conversations)
+
+function displayMessages(conversation, yourname) {
+	for (message in conversation) {
+		var div;
+		if (conversation[message].from.name == yourname) {
+			div = $("<div class='your message'>");
+		}
+		else {
+			div = $("<div class='their message'>");
+		}
+			div.append("<span class='author'>" + 
+									  conversation[message].from.name + 
+									  "</span> <span class='message-text'>" + 
+									  conversation[message].message + 
+									  "</span></div>");
+			div.appendTo("#message-display");
+	}
+
+}
