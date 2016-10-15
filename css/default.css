@@ -83,3 +83,7 @@ body.loading {
 .message {
 	padding: 1em;
 }
+
+.highlighted {
+	outline: 1px solid blue;
+}
