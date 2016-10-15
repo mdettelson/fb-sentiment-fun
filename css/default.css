@@ -35,7 +35,7 @@ input {
 }
 
 .conversation {
-	flex-basis: 50%;
+	flex-basis: 100%;
 	text-align: center;
 	outline: 1px solid black;
 	transition: 1s linear all;
