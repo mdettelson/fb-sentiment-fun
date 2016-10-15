@@ -9,3 +9,4 @@ six==1.10.0
 virtualenv==15.0.1
 w3lib==1.14.2
 Werkzeug==0.11.9
+gunicorn==19.6.0
