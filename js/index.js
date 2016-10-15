@@ -2,12 +2,12 @@ GLOBALS = {}
 
 GLOBALS.threshold = 0.2;
 GLOBALS.colormappings = {}
-GLOBALS.colormappings['joy'] = [255, 211, 0];
-GLOBALS.colormappings['anger'] = [255, 0, 0];
-GLOBALS.colormappings['sadness'] = [0, 105, 185];
-GLOBALS.colormappings['fear'] = [140, 57, 152];
-GLOBALS.colormappings['disgust'] = [10, 120, 17];
-GLOBALS.colormappings['none'] = [255, 255, 255];
+GLOBALS.colormappings['joy'] = [255, 235, 59];
+GLOBALS.colormappings['anger'] = [255, 110, 64];
+GLOBALS.colormappings['sadness'] = [66, 165, 245];
+GLOBALS.colormappings['fear'] = [206, 147, 216];
+GLOBALS.colormappings['disgust'] = [124, 179, 66];
+GLOBALS.colormappings['none'] = [245, 245, 245];
 
 $(document).ready(function() {
 	initEventListeners();
@@ -206,22 +206,22 @@ function getColorBySentiment(sentiment_pair) {
 	var intensity = Math.pow(sentiment_pair[sentiment], 2);
 
 	if (sentiment == 'joy') {
-		return 'rgba(255, 211, 0, '+intensity+')';
+		return 'rgba(255, 235, 59, '+intensity+')';
 	}
 	else if (sentiment == 'anger') {
-		return 'rgba(255, 0, 0, '+intensity+')';
+		return 'rgba(255, 110, 64, '+intensity+')';
 	}
 	else if (sentiment == 'sadness') {
-		return 'rgba(0, 105, 185, '+intensity+')';
+		return 'rgba(66, 165, 245, '+intensity+')';
 	}
 	else if (sentiment == 'fear') {
-		return 'rgba(140, 57, 152, '+intensity+')';
+		return 'rgba(206, 147, 216, '+intensity+')';
 	}
 	else if (sentiment == 'disgust') {
-		return 'rgba(10, 120, 17, '+intensity+')';
+		return 'rgba(124, 179, 66, '+intensity+')';
 	}
 	else {
-		return '#fff';
+		return '#FAFAFA';
 	}
 }
 
