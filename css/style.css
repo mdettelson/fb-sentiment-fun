@@ -3,6 +3,10 @@
 	display: block;
 }
 
+.conversations {
+	font-size: 14px;
+}
+
 #search-console {
 	display: none;
 }
@@ -33,10 +37,8 @@ body {
 
 #message-display {
 	display: block;
-	margin: 10px;
 	height: 75%;
 	overflow: auto;
-	padding: 0 20%;
 	outline: 1px solid;
 	outline-color: #212121;
 }
