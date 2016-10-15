@@ -1,6 +1,5 @@
 cssselect==0.9.1
 Flask==0.10.1
-gyp==0.1
 itsdangerous==0.24
 Jinja2==2.8
 MarkupSafe==0.23
