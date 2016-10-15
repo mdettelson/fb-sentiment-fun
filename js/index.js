@@ -321,3 +321,23 @@ function hideLoadScreen() {
 	$('#loader').removeClass('active');
 	$('body').removeClass('loading');
 }
+
+function greatestSentimentSumSize3WithKey(list, key) {
+	a = [];
+	l = list.length;
+	max = 0;
+	max_i = 2;
+	for (var i = 2; i < l; i++) {
+		var cur = Number(list[i]['sentiment']['docEmotions'][key]) + Number(list[i-2]['sentiment']['docEmotions'][key]) + Number(list[i-1]['sentiment']['docEmotions'][key]);
+		if (cur > max) {
+			max = cur;
+			max_i = i;
+		}
+	}
+	console.log(max);
+	return max_i;
+}
+
+
+
+
