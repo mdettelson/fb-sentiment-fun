@@ -1,3 +1,8 @@
+body {
+	font-family: helvetica;
+	margin: 0;
+}
+
 #tutorial img {
 	display: block;
 }
@@ -16,4 +21,21 @@ input {
 
 .hidden {
 	display: none;
+}
+
+#conversations {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.conversation {
+	flex-basis: 50%;
+	text-align: center;
+	outline: 1px solid black;
+	transition: 1s linear all;
+}
+
+.conversation:hover {
+	text-decoration: underline;
+	cursor: pointer;
 }

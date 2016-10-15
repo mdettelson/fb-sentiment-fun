@@ -14,9 +14,9 @@ function initEventListeners() {
 			accessTokenSubmit($(this).val());
 		}
 	});
-	$('#conversations').on('click', '.conversations-drilldown', function(e) {
+	$('#conversations').on('click', '.conversation', function(e) {
 		e.preventDefault();
-		drillDownIntoConversation(this.attr('id')); // index # of position in global conversations
+		drillDownIntoConversation($(this).attr('id').split('_')[1]); // index # of position in global conversations
 	});
 	$('#showtut').on('click', function(e) { 
 		$('#tutorial').toggleClass('hidden');
@@ -56,6 +56,7 @@ function fbTokenQuerySuccess(token, data) {
 	alert("Hi, " + GLOBALS.username + "!");
 	filterConversationsWithNoComments();
 	makeConversationsHumanReadable();
+	displayConversations();
 }
 
 // some convention which seems to be holding true is that you are listed as the last
@@ -96,8 +97,22 @@ function makeConversationsHumanReadable() {
 	}
 }
 
+function displayConversations() {
+	for (var i = GLOBALS.conversations.length - 1; i >= 0; i--) {
+		$('#conversations').append(makeConversationDisplay(GLOBALS.conversations[i], i));
+	}
+}
+
+function makeConversationDisplay(conversation, index) {
+	return "<div id='convo_"+index+"' class='conversation'><h2 class='conversation-title'>" + conversation['readable-name'] + "</h2></div>";
+}
+
+function drillDownIntoConversation(index) {
+	analyzeConversation(index);	
+}
+
 function makeSentimentAnalysisQuery(conversation, index, sentence) {
-	return $.ajax({
+	return conversation['comments']['data'][index].hasOwnProperty('sentiment') || $.ajax({
 		url: window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/analyze',
 		method: 'POST',
 		data: {'text': sentence},
@@ -132,12 +147,14 @@ function sentimentAnalysisQueryFailure(conversation, index, data) {
 }
 
 function analyzeConversation(index_no) {
+	// console.log(index_no);
 	var comments = GLOBALS.conversations[index_no]['comments']['data'];
 	var deferreds = $.map(GLOBALS.conversations[index_no]['comments']['data'], function(v,k) {
 		return makeSentimentAnalysisQuery(GLOBALS.conversations[index_no], k, v['message']);
 	});
 	$.when.apply(window, deferreds).then(function() { 
-		console.log('got all the data');
+		console.log('hello');
+		displayMessages(comments, GLOBALS.username);
 	});
 }
 
@@ -162,6 +179,7 @@ function analyzeConversation(index_no) {
 // loading more conversations (pagination is already there for loading more conversations)
 
 function displayMessages(conversation, yourname) {
+	$("#message-display").empty();
 	for (message in conversation) {
 		var div;
 		if (conversation[message].from.name == yourname) {

@@ -1,4 +1,5 @@
 import os
+import sys
 from flask import Flask, request, send_from_directory
 from src import analyzemessage as polyhack
 
@@ -27,7 +28,11 @@ def analyze():
 	if (data['text']):
 		text = data['text']
 		print text
-		result = polyhack.get_emotion(text)
+		try:
+			result = polyhack.get_emotion(text)
+		except:
+			print sys.exc_info()[0]
+			return '{"error":"invalid"}'
 		print result
 		return result
 	else:
