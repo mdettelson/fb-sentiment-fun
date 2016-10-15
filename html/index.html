@@ -3,12 +3,16 @@
 	<head>
 		<title>Facebook Sentiment Analysis</title>
 		<meta charset='utf-8'>
-		<link rel="stylesheet" src="css/style.css">
+		<link rel="stylesheet" href="css/default.css">
 		<script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
 		<script src="js/index.js"></script>
 		<script src="js/facebook.js"></script>
 	<body>
-		<div>
+		<div id='access-token-input'>
+			<label for='token'>Paste your access token below:</label>
+			<input id='token'>
+		</div>
+		<div id='tutorial'>
 			<img src='img/step1.png' />
 			<img src='img/step2.png' />
 			<img src='img/step3.png' />

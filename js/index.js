@@ -1,79 +1,83 @@
+GLOBALS = {}
 
-  // This is called with the results from from FB.getLoginStatus().
-  function statusChangeCallback(response) {
-    console.log('statusChangeCallback');
-    console.log(response);
-    // The response object is returned with a status field that lets the
-    // app know the current login status of the person.
-    // Full docs on the response object can be found in the documentation
-    // for FB.getLoginStatus().
-    if (response.status === 'connected') {
-      // Logged into your app and Facebook.
-      testAPI();
-    } else if (response.status === 'not_authorized') {
-      // The person is logged into Facebook, but not your app.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into this app.';
-    } else {
-      // The person is not logged into Facebook, so we're not sure if
-      // they are logged into this app or not.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into Facebook.';
-    }
-  }
+$(document).ready(function() {
+	initEventListeners();
+});
 
-  // This function is called when someone finishes with the Login
-  // Button.  See the onlogin handler attached to it in the sample
-  // code below.
-  function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-    });
-  }
 
-  window.fbAsyncInit = function() {
-  FB.init({
-    appId      : '145634995501895',
-    cookie     : true,  // enable cookies to allow the server to access 
-                        // the session
-    xfbml      : true,  // parse social plugins on this page
-    version    : 'v2.3' // use graph api version 2.5
-  });
+function initEventListeners() {
+	$('#token').on('keydown', function(e) {
+		console.log(this);
+		if (e.keyCode === 13) {
+			e.preventDefault();
+			console.log(this);
+			accessTokenSubmit($(this).val());
+		}
+	});
+}
 
-  // Now that we've initialized the JavaScript SDK, we call 
-  // FB.getLoginStatus().  This function gets the state of the
-  // person visiting this page and can return one of three states to
-  // the callback you provide.  They can be:
-  //
-  // 1. Logged into your app ('connected')
-  // 2. Logged into Facebook, but not your app ('not_authorized')
-  // 3. Not logged into Facebook and can't tell if they are logged into
-  //    your app or not.
-  //
-  // These three cases are handled in the callback function.
+function accessTokenSubmit(token) {
+	console.log(token);
+	makeFacebookMessagesQuery(token);
+}
 
-  FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
+function makeFacebookMessagesQuery(token) {
+	return $.ajax({
+		url: "https://graph.facebook.com/v2.3/me/inbox?access_token=" + token + "&format=json&method=get&pretty=0&suppress_http_code=1",
+		success: function(data) {
+			console.log(data);
+			if ('error' in data) {
+				alert("Whoops! Something went wrong with your query. Check your Access Token and try again.");
+			}
+			else {
+				fbTokenQuerySuccess(token, data);
+			}
+		},
+		error: function() {
+			// well facebook doesn't do error status parsing whoops
+			alert("Whoops! Something went wrong with your query. Check your Access Token and try again");
+		}
+	});
+}
 
-  };
+function fbTokenQuerySuccess(token, data) {
+	alert("Success!");
+	GLOBALS.raw = data;
+	GLOBALS.conversations = data['data'];
+	console.log(data);
+	getUserName();
+	alert("Hi, " + GLOBALS.username + "!");
+	makeConversationsHumanReadable();
 
-  // Load the SDK asynchronously
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
+}
 
-  // Here we run a very simple test of the Graph API after login is
-  // successful.  See statusChangeCallback() for when this call is made.
-  function testAPI() {
-    console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function(response) {
-      console.log('Successful login for: ' + response.name);
-      document.getElementById('status').innerHTML =
-        'Thanks for logging in, ' + response.name + '!';
-    });
-  }
+// some convention which seems to be holding true is that you are listed as the last
+// individual in the conversation thread
+function getUserName() {
+	var len = GLOBALS.conversations[0]['to']['data'].length;
+	GLOBALS.username = GLOBALS.conversations[0]['to']['data'][len - 1]['name'];
+	console.log(GLOBALS.username);
+}
+
+// display conversations as "X and Y" or "X, Y, and Z"
+function makeConversationsHumanReadable() {
+	for (var i = GLOBALS.conversations.length - 1; i >= 0; i--) {
+		var convo = GLOBALS.conversations[i];
+		var first_names = GLOBALS.conversations[i]['to']['data'].map(function(d) { return d.name.split(' ')[0]; });
+		var n_people = GLOBALS.conversations[i]['to']['data'].length;
+		// case 1: only two people
+		if (n_people <= 2) {
+			convo['readable-name'] = first_names[0] + " and You";
+		}
+		else if (n_people < 3) {
+			convo['readable-name'] = first_names[0] + ', ' + first_names[1] + ', and You';
+		}
+		else if (n_people < 4) {
+			convo['readable-name'] = first_names[0] + ', ' + first_names[1] + ', ' + first_names[2] + ', and You';
+		}
+		else {
+			convo['readable-name'] = first_names[0] + ', ' + first_names[1] + ', ' + first_names[2] + ', You and ' + (n_people - 4) + ' others';
+		}
+		console.log(convo['readable-name']);
+	}
+}
